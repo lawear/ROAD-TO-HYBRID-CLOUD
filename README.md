@@ -3,6 +3,10 @@
 ## 📘 Purpose
 The goal of this lab is to practice and strengthen system administration skills, focusing on **Active Directory Domain Services (AD DS)** setup, domain joining, and user management — all within a virtualized environment.
 
+
+
+Error Explanation:
+The PowerShell error occurred because the ADDSDeployment module and its cmdlets (such as Install-ADDSForest) were not available on the system. These commands are part of the Active Directory Domain Services (AD DS) feature in Windows Server, not a downloadable PowerShell module. Installing the AD DS role with management tools (Install-WindowsFeature AD-Domain-Services -IncludeManagementTools) resolves the issue by adding the required module and cmdlets.
 ---
 
 ## ⚙️ Lab Overview
