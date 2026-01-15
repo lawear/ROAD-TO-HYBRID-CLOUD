@@ -1,6 +1,7 @@
 # 🧠 Active Directory Lab in VMware
 
-## 📘 Purpose
+## 📘Project: Virtualized AD DS Lab
+Description: Windows Server 2022 DC acting as a DNS/DHCP server and NAT Router, bridging a VMware NAT interface to an isolated LAN Segment for Windows 11 client connectivity.
 
 
 ## ⚙️ Lab Overview
@@ -18,8 +19,8 @@
 
 | VM | Adapter 1 | Adapter 2 | Configuration|
 |----|------------|-----------|----------|
-| **Domain Controller (DC)** | NAT(Routing) |Static IP|
-| **Windows 11 Client** | LAN Segment |InternetAccess & DHCP via DC |
+| **Domain Controller (DC)** | NAT(Routing) | LAN Segment|
+| **Windows 11 Client** ||LAN| |InternetAccess & DHCP via DC |
 
 
 
