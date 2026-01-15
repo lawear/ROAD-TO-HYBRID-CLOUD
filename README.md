@@ -8,7 +8,7 @@ Description: Windows Server 2022 DC acting as a DNS/DHCP server and NAT Router, 
 
 | Component | Description |
 |------------|-------------|
-| **Hypervisor** | VMware Workstation / VMware Fusion |
+| **Hypervisor** | VMware Workstation |
 | **Operating Systems** | Windows Server 2022, Windows 11 |
 | **Virtual Machines** | 2 (Domain Controller & Client) |
 | **VM Resources** | 2 CPUs, 4 GB RAM, 30 GB HDD each |
@@ -20,7 +20,7 @@ Description: Windows Server 2022 DC acting as a DNS/DHCP server and NAT Router, 
 | VM | Adapter 1 | Adapter 2 | Configuration|
 |----|------------|-----------|----------|
 | **Domain Controller (DC)** | NAT(Routing) | LAN Segment|
-| **Windows 11 Client** ||LAN| |InternetAccess & DHCP via DC |
+| **Windows 11 Client** ||-- ||LAN Segment|InternetAccess & DHCP via DC |
 
 
 
