@@ -14,7 +14,7 @@ Description: Windows Server 2022 DC acting as a DNS/DHCP server and NAT Router, 
 | **VM Resources** | 2 CPUs, 4 GB RAM, 30 GB HDD each |
 
 ---
-<img width="2958" height="1839" alt="VM Settings" src="https://github.com/user-attachments/assets/a7e0f69b-9495-4a79-b996-9e59ac8cd474" />
+<img width="1923" height="1196" alt="VM Settingss" src="https://github.com/user-attachments/assets/65b89cc3-10af-4864-bcae-e4042e2f275e" />
 
 
 ## 🌐 Network Configuration
