@@ -82,6 +82,13 @@ Select "Add New Forest and give a name including domain extension eg. ".com" or 
 
 
 
+#### DHCP SERVER AND SCOPE CONFIGURATION:
+
+
+
+
+
+
 ### 
 📸 *Screenshot Placeholder:*  
 `![VM Settings](./screenshots/vm-settings.png)`
