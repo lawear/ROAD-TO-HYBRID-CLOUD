@@ -30,7 +30,7 @@ Description: Designed and deployed a Windows Server 2022 DC acting as a DNS/DHCP
 
 
 
-
+Pre- VM Install Settings
 
 <img width="2439" height="1323" alt="Netwaork Settings" src="https://github.com/user-attachments/assets/80ce2dfb-a27f-4483-8b74-4227b54c7a0f" />
 
