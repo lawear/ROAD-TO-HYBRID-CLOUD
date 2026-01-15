@@ -80,6 +80,15 @@ Select "Add New Forest and give a name including domain extension eg. ".com" or 
 
 
 
+<img width="3249" height="1983" alt="After Restart" src="https://github.com/user-attachments/assets/f12e3460-ca59-4a9d-a95c-18c50a0d122e" />
+
+
+
+
+
+
+<img width="2970" height="1842" alt="Users and Computers" src="https://github.com/user-attachments/assets/ef43a142-1ed8-4e0d-814a-e8e4c3ff492f" />
+
 
 
 #### DHCP SERVER AND SCOPE CONFIGURATION:
