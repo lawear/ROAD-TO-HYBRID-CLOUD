@@ -7,7 +7,7 @@
 This project outlines the design and deployment of a virtualized Active Directory Domain Services (AD-DS) environment. The architecture utilizes a Windows Server 2022 Domain Controller (DC) configured as a multihomed gateway. It provides DNS, DHCP, and NAT Routing services, bridging an external VMware NAT interface to an isolated internal LAN segment for secure client connectivity.
 
 
-**Lab Overview**
+### Technical Specifications
 
 | Component | Description |
 |------------|-------------|
