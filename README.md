@@ -1,7 +1,8 @@
 ### Project: Virtualized AD-DS Laboratory Environment
 ## Version: 1.0
 
-#### Focus: Windows Server 2022, Network Infrastructure, and Client Integration
+#### Focus: 
+Windows Server 2022, Network Infrastructure, and Client Integration
 
 ## Summary
 This project outlines the design and deployment of a virtualized Active Directory Domain Services (AD-DS) environment. The architecture utilizes a Windows Server 2022 Domain Controller (DC) configured as a multihomed gateway. It provides DNS, DHCP, and NAT Routing services, bridging an external VMware NAT interface to an isolated internal LAN segment for secure client connectivity.
@@ -44,7 +45,7 @@ touch README.md
 touch screenshots/.gitkeep
 touch scripts/.gitkeep
 
-**Roles and Server Installations**
+##Roles and Server Installations##
 Access the Server Manager Dashboard to begin the service provisioning.
 
 1.Navigate to Manage > Add Roles and Features.
