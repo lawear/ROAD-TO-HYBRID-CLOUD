@@ -7,8 +7,7 @@
 This project outlines the design and deployment of a virtualized Active Directory Domain Services (AD-DS) environment. The architecture utilizes a Windows Server 2022 Domain Controller (DC) configured as a multihomed gateway. It provides DNS, DHCP, and NAT Routing services, bridging an external VMware NAT interface to an isolated internal LAN segment for secure client connectivity.
 
 
-### Technical Specifications
-
+### VMware Settings
 | Component | Description |
 |------------|-------------|
 | **Hypervisor** | VMware Workstation |
@@ -18,14 +17,10 @@ This project outlines the design and deployment of a virtualized Active Director
 
 ---
 
-
-**Pre-VM Install Settings:**
-
 <img width="1923" height="1196" alt="VM Settingss" src="https://github.com/user-attachments/assets/65b89cc3-10af-4864-bcae-e4042e2f275e" />
 
 
-**Network Configuration**
-
+**Network Topology**
 | VM | Adapter 1 | Adapter 2 | Configuration|
 |----|------------|-----------|----------|
 | **Domain Controller (DC)** | NAT(Routing) | LAN Segment| Static IP|
@@ -34,12 +29,8 @@ This project outlines the design and deployment of a virtualized Active Director
 
 
 
-
 **Network Interface Settings**
-
 <img width="2439" height="1323" alt="Netwaork Settings" src="https://github.com/user-attachments/assets/80ce2dfb-a27f-4483-8b74-4227b54c7a0f" />
-
-
 
 
 ---
@@ -54,15 +45,20 @@ touch screenshots/.gitkeep
 touch scripts/.gitkeep
 
 ### Setup Steps:
-**INSTALL ACTIVE DIRECTORY & PROMOTE TO DC**
--Select “Add Roles and Features” from Server Manager Dashboard.
+**Roles and Server Installations**
+Access the Server Manager Dashboard to begin the service provisioning.
 
--Run through the installation wizard leaving “Role-based or feature-based” selected.
+1.Navigate to Manage > Add Roles and Features.
 
--Select Server(DC_NY)
+2.Select Role-based or feature-based installation.
 
--Select Active Directory Domain Services,DNS Server,DHCP Server and Remote Access.
+3.Target Server: DC_NY.
 
+4.Select the following roles:
+  -Active Directory Domain Services (AD-DS)
+  -DNS Server
+  -DHCP Server
+  -Remote Access (Required for NAT/Routing)
 
 
 
