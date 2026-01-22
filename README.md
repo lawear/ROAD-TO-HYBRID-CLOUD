@@ -31,6 +31,8 @@
 | **Domain Controller (DC)** | NAT(Routing) | LAN Segment|Static IP|
 | **Windows 11 Client** | -- | LAN Segment| InternetAccess & DHCP via DC |
 
+**Phase 1:** Server Provisioning and AD DS Promotion
+The foundation of the environment begins with the installation of core server roles and the establishment of a new Active Directory forest.
 
 1.1 Role Installation
 Before configuring specific services, Active Directory Domain Services (AD DS), DHCP, and DNS roles must be enabled.
