@@ -1,71 +1,23 @@
-Headline: Labs are for building. 🛠️
 
-I just finished documenting my latest project: a secure Active Directory environment with a Windows Server 2022 NAT Gateway.
-
-The setup simulates a real-world enterprise isolated network, allowing for safe testing of GPOs and deployments without external exposure.
-
-Key Tech:
-
-AD DS & DNS: Forest creation and name resolution.
-
-DHCP: Automated IP management for isolated clients.
-
-RRAS (NAT): Bridging a private LAN to the WAN.
-
-Check out the full breakdown and network logic on my GitHub: [Link to your Repo]
-
-**Building a Secure Active Directory Lab to master Windows Server 2022, NAT Routing, and Client Integration using VMware.
-**
-
-**Prerequisite Checklist:**
-**ISO Media**: Server 22 iso & windows 11 iso
-
-**DC-SVR2022**: A clean installation of standard Windows Server 2022 with Desktop Experience.
-
-**PC1 & PC2**: A clean installation of Windows 11 Pro.
-
-Logical Diagram
-
-[ Public Internet ]
-               |
-               | (VMware NAT / Bridge)
-               ▼
-    +-------------------------+
-    |  Windows Server 2022    |
-    |    (Domain Controller)  |
-    |-------------------------|
-    | NIC 1: External (DHCP)  | <--- Bridges to WAN
-    | NIC 2: Internal (Static)| <--- 10.5.10.5
-    |                         |
-    |  Roles: ADDS, DNS, DHCP |
-    |  Service: RRAS (NAT)    |
-    +------------+------------+
-                 |
-                 | (Isolated LAN Segment)
-                 |
-        +--------+--------+
-        |                 |
- [ Win 11 Client ] [ Win 11 Client ]
-   (10.5.10.22)      (10.5.10.23)
+## Project: Secure AD DS Lab with NAT Routing
+**Summary**
+In this project I built a secure AD lab using my DC as a gateway. I used RRAS to set up NAT routing, meaning my domain-joined clients can get online through the server without being directly exposed to the internet. It keeps the private network isolated while still allowing for updates and browsing.
 
 
-**VMware Specificatios**:
+**Infrastructure Pre-requisite:**
 | Component | Description |
-|------------|-------------|
+|-----------|-------------|
 | **Hypervisor** | VMware Workstation |
-| **Operating Systems** | Windows Server 2022, Windows 11 |
-| **Virtual Machines** | 2 (Domain Controller & Client) |
-| **VM Resources** | 2 CPUs, 4 GB RAM, 30 GB HDD each |
-
----
-
+| **Operating Systems** | Windows Server 2022, Windows 11 Pro |
+| **Deployment** | 2 Virtual Machines (Domain Controller & Client) |
+| **Resource Per VM** | 2 CPUs, 4 GB RAM, 30 GB HDD |
+| **Networking** | AD DS, DNS, DHCP (Option 003/006), RRAS (NAT) | |
 
 
-**Network Flow Logic:**
-| VM | Adapter 1 | Adapter 2 | Configuration|
-|----|------------|-----------|----------|
-| **Domain Controller (DC)** | NAT(Routing) | LAN Segment|Static IP|
-| **Windows 11 Client** | -- | LAN Segment| InternetAccess & DHCP via DC |
+![Network Topology Diagram](./Larry.png)
+
+
+
 
 **Phase 1:** Server Provisioning and AD DS Promotion
 The foundation of the environment begins with the installation of core server roles and the establishment of a new Active Directory forest.
@@ -271,5 +223,23 @@ Component,Role,Network Configuration
 Domain Controller,Gateway / DNS / DHCP,Adapter 1 (NAT) & Adapter 2 (LAN Segment)
 Windows 11 Client,End-User Workstation,LAN Segment (Isolated)
 
+Headline: Labs are for building. 🛠️
+
+I just finished documenting my latest project: a secure Active Directory environment with a Windows Server 2022 NAT Gateway.
+
+The setup simulates a real-world enterprise isolated network, allowing for safe testing of GPOs and deployments without external exposure.
+
+Key Tech:
+
+AD DS & DNS: Forest creation and name resolution.
+
+DHCP: Automated IP management for isolated clients.
+
+RRAS (NAT): Bridging a private LAN to the WAN.
+
+Check out the full breakdown and network logic on my GitHub: [Link to your Repo]
+
+**Building a Secure Active Directory Lab to master Windows Server 2022, NAT Routing, and Client Integration using VMware.
+**
 
 
