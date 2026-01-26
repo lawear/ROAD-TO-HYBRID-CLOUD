@@ -21,34 +21,20 @@ In this project I built a secure AD lab using my DC as a gateway. I used RRAS to
 </p>
 
 
+**Phase 1:Active Directory Provisioning(IAM):**
+Started by spinning up the core server roles and building a fresh Active Directory forest from scratch on my win 22 server vm.
 
-**Phase 1:** Server Provisioning and AD DS Promotion
-The foundation of the environment begins with the installation of core server roles and the establishment of a new Active Directory forest.
+**1.1 Role Installation**
+Hit 'Add Roles and Features' in Server Manager and checked off the boxes for AD DS, DHCP,DNS and RRAS. This got my identity management and core network services up and running for the lab.
 
-1.1 Role Installation
-Before configuring specific services, Active Directory Domain Services (AD DS), DHCP, and DNS roles must be enabled.
+<img width="700" height="1000" alt="Ready to Install Roles and features" src="https://github.com/user-attachments/assets/25106061-fa42-49f5-a821-bea24fbec25d" />
 
-Figure 1.1:
-Displays the confirmation screen for the selected roles before the installation process begins.
+**1.2 Forest Creation & AD DS Promotion**:
 
-<img width="600" height="1000" alt="Ready to Install Roles and features" src="https://github.com/user-attachments/assets/25106061-fa42-49f5-a821-bea24fbec25d" />
- 
+Setup a new forest with pawplicity.com as the root domain. This created the main security and identity boundary for everything in the lab.
 
-Figure 1.2: Highlights the post-deployment configuration link in Server Manager required to elevate the server to a Domain Controller.
-
-  <img width="600" height="1000" alt="Promote Server to DC" src="https://github.com/user-attachments/assets/3e763780-ed8f-4d8f-9f07-e822a5f194f6" />
-
-
-1.2 Forest Creation
-A new forest is established to provide the identity and security boundary for the lab.
-
-Figure 1.3: Shows the "Add a new forest" operation with the Root domain name set to Pawplicity.com
-
-<img width="600" height="1000" alt="Naming my Domain" src="https://github.com/user-attachments/assets/cf12dbbf-0bbe-4fd8-8007-adc48cae31ac" />
-
-Figure 1.4:Displays the Windows login screen showing the PAWPLICITY\Administrator account, confirming the domain is active.
- 
- <img width="600" height="1000" alt="After Restart" src="https://github.com/user-attachments/assets/e1a578b1-409e-4b0a-a7ef-ee619c657b25" />
+<img width="700" height="1000" alt="Naming my Domain" src="https://github.com/user-attachments/assets/cf12dbbf-0bbe-4fd8-8007-adc48cae31ac" />
+<img width="700" height="1000" alt="After Restart" src="https://github.com/user-attachments/assets/e1a578b1-409e-4b0a-a7ef-ee619c657b25" />
 
 
 Phase 2: Internal Network Management (DHCP)
