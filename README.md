@@ -17,7 +17,7 @@ In this project I built a secure AD lab using my DC as a gateway. I used RRAS to
 <p align="Left">
   <img src="screenshots/larry.png" alt="Network Topology Diagram" width="450">
   <br>
-  <b>Figure 1:</b> <i>Dual-Homed Edge Gateway Topology with RRAS/NAT</i>
+   <b>Figure 1:</b> <i>Dual-Homed Edge Gateway Topology with RRAS/NAT</i>
 </p>
 
 
