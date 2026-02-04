@@ -14,15 +14,24 @@ Designed a custom OU structure to organize users and service accounts and  Set u
 
 **Windows Client:** A domain-joined workstation used to verify that the networking and policies actually work in practice.
 
-**Custom Policies (GPOs)**
+**Custom Policies (GPOs):**
 To make the lab behave like a production environment, I pushed out a couple Group Policy Objects:
+
 -Drive Mapping: Automatically maps a network share (like a "Public" or "Home" drive) when a user logs in. This is way more efficient than doing it manually on every machine.
+
 -Screensaver Lock: Enforced a mandatory screensaver and timeout lock. This is a standard security move to ensure workstations aren't left wide open when someone walks away.
 
-**How it Works**
+<p align="Left">
+  <img src="screenshots/larry.png" alt="Network Topology Diagram" width="450">
+  <br>
+   <b>Figure 1:</b> <i>Dual-Homed Edge Gateway Topology with RRAS/NAT</i>
+</p>
+
+**How it Works:**
+
 Isolation: The client machine sits on a private virtual switch. It can't "see" my home router at all.
 
-In practice: The client asks the Server for an IP (DHCP) and the Server tells it, "I'm your gateway."
+The Handshake: The client asks the Server for an IP (DHCP) and the Server tells it, "I'm your gateway."
 
 The Routing: When the client goes to a website, the Server uses NAT to mask the client's internal IP. The server fetches the data and hands it back, keeping the client's identity hidden from the internet.
 
@@ -38,11 +47,7 @@ Policy Enforcement: As soon as a user logs in, the DC pushes the drive mappings 
 | **Networking** | AD DS, DNS, DHCP (Option 003/006), RRAS (NAT) | |
 
 
-<p align="Left">
-  <img src="screenshots/larry.png" alt="Network Topology Diagram" width="450">
-  <br>
-   <b>Figure 1:</b> <i>Dual-Homed Edge Gateway Topology with RRAS/NAT</i>
-</p>
+
 
 
 **Phase 1:Active Directory Provisioning(IAM):**
