@@ -57,22 +57,53 @@ Setup a new forest with `pawplicity.com` as the root domain, creating the main s
 
 ---
 
-**Phase 2: DHCP & NAT Routing Setup**
-Configured the DC to handle the private LAN by setting up DHCP to automate IP assignments and RRAS for external access.
+## **Phase 2: DHCP & NAT Routing Setup**
+I configured the Domain Controller to manage the private LAN by setting up **DHCP** to automate IP assignments and **RRAS** for external access.
 
-* **DHCP Scope Configuration:**
-    * **Address Pool:** 10.5.10.20 – 10.5.10.250
-    * **DNS (Option 006):** Pointed to 10.5.10.5 for domain resolution.
-    * **Gateway (Option 003):** Pointed to 10.5.10.5 to facilitate external routing.
+### **DHCP Scope Configuration**
+I set up a scope to handle the internal network traffic. This ensures any device added to the LAN automatically receives the correct settings to communicate with the DC and the internet.
 
-**2.1 NAT Implementation**
-Utilized the **RRAS console** to transform the server into a gateway, allowing internal clients to communicate with external services while remaining hidden behind the server's external IP.
-<img width="550" alt="RRAS Up and Running" src="https://github.com/user-attachments/assets/ea306751-306d-4269-a341-986178890c59" />
+* **Address Pool:** 10.5.10.20 – 10.5.10.250
+* **DNS (Option 006):** Pointed to `10.5.10.5` for domain resolution.
+* **Gateway (Option 003):** Pointed to `10.5.10.5` to facilitate external routing.
+
+<img width="500" height="477" alt="DHCP Options" src="https://github.com/user-attachments/assets/1ec0c663-ad5a-4e5b-a501-5bfdc927dc62" />
 
 ---
 
-**Phase 3: Identity Management & Directory Structure**
-With the network stable, I established a professional directory hierarchy to manage the organization.
+### **2.1 NAT Implementation**
+I utilized the **RRAS console** to transform the server into a gateway. This allows internal clients to communicate with external services while remaining hidden behind the server's external IP. I specifically configured the `_Internet_Access_` interface as the public-facing port with NAT enabled.
 
-**3.1 Custom OU Hierarchy**
-Created the `Pawplicity` parent
+
+<img width="500" height="798" alt="NAT Routing Configured" src="https://github.com/user-attachments/assets/140cbb38-1363-43a1-b13d-109682ddbd36" />
+
+---
+
+### **2.2 Connectivity Testing (Client Side)**
+To verify the setup, I booted up a client workstation (**PC_01**). As shown in the screenshot below, the client successfully received an IP from the DHCP pool (`10.5.10.20`) and was able to ping an external address (`8.8.8.8`), proving that the NAT routing is working perfectly.
+
+
+<img width="500" height="700" alt="Client Side DHCP and NAT Routing" src="https://github.com/user-attachments/assets/3fbac16d-18bd-405e-a982-a25addb11092" />
+
+---
+
+## **Phase 3: IAM & Active Directory Structure**
+With the network established, I designed and implemented the **Identity and Access Management (IAM)** hierarchy within Active Directory. The goal was to create an organized structure that reflects the company’s geographical locations and departments for easier policy management.
+
+### **Organizational Unit (OU) Hierarchy**
+I created a top-level OU for the company, **Pawplicity**, and nested sub-OUs based on regional offices:
+* **New Jersey:** Includes Camden and Union locations.
+* **New York:** Includes The Bronx and Westchester locations.
+
+Within each specific office location, I standardized the structure by adding sub-OUs for:
+* **Computers:** For managing workstation and server objects.
+* **Groups:** To handle department-level security and distribution lists.
+* **IT_Admins:** For high-privilege administrative accounts.
+* **Users:** For general employee accounts.
+
+<img width="600" height="700" alt="IAM Structure" src="https://github.com/user-attachments/assets/d805d033-7738-42fc-9eea-8774b4a2cdd4" />
+
+---
+
+### **Strategy & Management**
+This tiered structure allows for granular **Group Policy Object (GPO)** application. For example, I can now apply specific security settings to the entire New York region or drill down to only affect users in the Westchester office. It also simplifies administrative delegation, ensuring that local IT leads only have access to their respective OUs.
