@@ -1,6 +1,6 @@
 
  
-## **Project: Secure ADDS Lab with NAT Routing**
+## **Project: Secure ADDS Lab via NAT Routing**
 
 In this project I built a simulation of real-world enterprise level Active Directory environment. My main focus was providing internet access to my virtual machines without exposing them directly to Home Router aka the outside world for security. By configuring the Windows Server(Domain) as a **NAT Gateway**, I created a "middleman" that keeps the lab isolated while still allowing for updates and web traffic.
 
