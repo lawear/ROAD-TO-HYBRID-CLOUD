@@ -107,3 +107,43 @@ Within each specific office location, I standardized the structure by adding sub
 
 ### **Strategy & Management**
 This tiered structure allows for granular **Group Policy Object (GPO)** application. For example, I can now apply specific security settings to the entire New York region or drill down to only affect users in the Westchester office. It also simplifies administrative delegation, ensuring that local IT leads only have access to their respective OUs.
+
+
+## **Phase 4: Automated Bulk User Creation**
+
+To streamline the onboarding process, I utilized a specialized PowerShell script from the **[AD_PS](https://github.com/joshmadakor1/AD_PS)** repository by **Josh Madakor**. This script is designed to automate Active Directory user creation from an external text-based source file, allowing for a more efficient setup compared to manual entry and ensuring consistency across all new accounts.
+
+### **Implementation & Troubleshooting**
+While the script provided the framework for automation, I was responsible for configuring it to work within my specific environment. I encountered and resolved several initial errors during the implementation:
+
+* **Data Sanitization**: I identified that trailing spaces in my `.txt` source file were causing headers to be misread. I manually cleaned the data to ensure proper parsing.
+* **Path Resolution**: I corrected the script’s `$OU` variable to match the exact **Distinguished Name** of my "Westchester" OU, specifically handling the space in "New York" that was causing "Object Not Found" errors.
+
+---
+
+### **PowerShell Automation Results**
+The script iterates through each row of the text file, dynamically building user attributes and placing them directly into the **Westchester > Users** OU.
+
+**Script Features Implemented:**
+* **UPN Standardization**: Automatically generated emails in the `@pawplicity.com` format.
+* **Security Compliance**: Set a default temporary password and forced a password change at first logon.
+* **Targeted Placement**: Successfully bypassed the default "Users" container to utilize my custom IAM hierarchy.
+
+
+<img width="600" height="600" alt="CreatedUserswithPS" src="https://github.com/user-attachments/assets/35f12bf5-3d8b-46ec-b20e-9f257d654db3" />
+
+---
+
+
+### **Lessons Learned**
+* **The Importance of Data Integrity**: I learned that even a single trailing space in a source `.txt` file can cause a PowerShell script to misinterpret headers, leading to failed execution.
+* **Distinguished Names (DN) are Literal**: Active Directory requires exact syntax; I discovered that any naming mismatch—such as a missing space in "New York"—will cause the script to fail as it cannot resolve the target path.
+* **Automation Efficiency**: Utilizing a script significantly decreased onboarding time and reduced the potential for manual typos compared to creating 13+ users via the GUI.
+* **Troubleshooting Error Logs**: This phase reinforced the value of reading PowerShell error codes to trace a problem back to its root cause, allowing for quick pivots in script configuration.
+
+---
+
+### **Final Verification**
+The screenshot below confirms the successful completion of the bulk import. All users from the source file are now properly populated within the **Westchester > Users** OU with their correct names and attributes.
+
+<img width="600" height="600" alt="ConfirmedUserCreation" src="https://github.com/user-attachments/assets/12d2b0be-50a4-4507-bebb-e512a84f267f" />
