@@ -166,12 +166,12 @@ The script iterates through each row of the text file, dynamically building user
 
 ---
 
-### **Lessons Learned**
-* **Data Integrity & Syntax**: I found that even a single trailing space in the source .txt file or a missing space in a Distinguished Name (DN) (e.g., "New York" vs "NewYork") would cause the PowerShell script to fail. This reinforced how literal Active Directory is with naming conventions
-
+### **Lessons Learned & Technical Insights**
+* **Data Integrity & Syntax**: I discovered how literal Active Directory is with naming conventions. Even a single trailing space in a .txt source file or a missing space in a Distinguished Name (DN) (e.g., "New York" vs "NewYork") causes script failure.
+  
 * **DNS is NOT Optional**: I learned Active Directory is entirely dependent on DNS. If a client cannot resolve the Domain Controller’s SRV records, the domain join will fail. I configured the DC as the primary DNS server for the entire lab to ensure seamless name resolution and authentication.
 
-* **DHCP & Gateway Authority**: To make the NAT Routing work, I configured specific DHCP Options: Option 003 (Default Gateway) and Option 006 (DNS Servers). This automated the client-side networking, allowing workstations to find the internet through the NAT server and the DC for domain resources.
+* **DHCP & Gateway Authority**: To enable NAT Routing, I configured specific DHCP Options: 003 (Default Gateway) and 006 (DNS Servers). This automated client-side networking, allowing workstations to resolve the DC while routing internet traffic through the NAT server.
 
 * **Automation vs. GUI**: Scripting the user creation saved a massive amount of time. Manually creating 13+ users in the GUI is slow and prone to typos; automation ensures every account is built with the exact same attributes every time.
 
