@@ -6,6 +6,13 @@ In this project I built a simulation of real-world enterprise level Active Direc
 
 For governance, I deployed Active Directory Domain Services and a suite of Group Policy Objects to automate security baselines. 
 
+<p align="left">
+  <img src="screenshots/larry.png" alt="Network Topology Diagram" width="500">
+  <br>
+  <b>Figure 1:</b> <i>Dual-Homed Edge Gateway Topology with RRAS/NAT</i>
+</p>
+
+
 **Key implementations include:**
 
 * **Windows Server (DC & Gateway):**
@@ -16,15 +23,40 @@ For governance, I deployed Active Directory Domain Services and a suite of Group
     * Provisioned **Security Groups** to test permissions and access control.
 * **Windows Client:** A domain-joined workstation used to verify that the networking and policies actually work in practice.
 * **Custom Policies (GPOs):**
-    * **Drive Mapping:** Mapped the \\NY-DC\Public_Share via GPO preferences. Added Item-Level Targeting so it only hits the right user groups instead of blasting it to the whole domain.
-    * **Screensaver Lock:** Enforces a mandatory screensaver and timeout lock to ensure workstations are secured when idle.
-    * **Local Admin Control:** Centralized workstation management by adding a dedicated `Pawp_Admin` to the local Administrators group of all domain-joined PCs.
+    * **Drive Mapping:** Automatically map the I: drive to \\NY-DC\Pawp_drive_shares for everyone in the Westchester office. Using Group Policy Preferences.
+    * 
+**1.Linking the Policy:**
+I created the GPO_DriveMapping_Public object and linked it directly to the Westchester > Users OU. By targeting the OU instead of the whole domain, I ensured this share only hits the regional staff who actually need access to these files.
 
-<p align="left">
-  <img src="screenshots/larry.png" alt="Network Topology Diagram" width="500">
-  <br>
-  <b>Figure 1:</b> <i>Dual-Homed Edge Gateway Topology with RRAS/NAT</i>
-</p>
+<img width="2000" height="1000" alt="Drive_Mapping" src="https://github.com/user-attachments/assets/e2740a36-24d7-40e5-b97a-a871732a857e" />
+
+<img width="2000" height="1000" alt="wttg" src="https://github.com/user-attachments/assets/4c2d9424-c92e-4426-b54f-7ef4d6111461" />
+
+
+
+
+**2.Configuring the Mapping:**
+Inside the GPO Editor, I set the action to Update. I used "Update" over "Create" because it’s more flexible; if I ever change the drive label or the server path later, the policy will push those changes out automatically without me having to delete and recreate the map.
+
+Path: \\NY-DC\Pawp_drive_shares
+
+Drive Letter: I:
+
+Label: my_pawp_drive
+
+<img width="2904" height="1425" alt="Creating Drive" src="https://github.com/user-attachments/assets/ef2d13ab-5c27-4923-9560-f572b19e9db6" />
+
+
+
+**3.Testing & Verification:**
+Confirmed auto mapping on client machine logging in with authorized user linked to policy.
+
+<img width="3099" height="1623" alt="Drive_mapped" src="https://github.com/user-attachments/assets/a2f3dde1-9427-4692-b7dd-453972a822a1" />
+
+
+* **Screensaver Lock:** Enforces a mandatory screensaver and timeout lock to ensure workstations are secured when idle.
+* **Local Admin Control:** Centralized workstation management by adding a dedicated `Pawp_Admin` to the local Administrators group of all domain-joined PCs.
+
 
 ---
 
