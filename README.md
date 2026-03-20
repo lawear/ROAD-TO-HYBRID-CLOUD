@@ -48,12 +48,14 @@ Started by spinning up the core server roles and building a fresh Active Directo
 Installed **AD DS, DHCP, DNS, and RRAS** via Server Manager to establish identity management and core network services.
 <img width="550" alt="Ready to Install Roles and features" src="https://github.com/user-attachments/assets/25106061-fa42-49f5-a821-bea24fbec25d" />
 
+
   * **1.2 Forest Creation & AD DS Promotion**
 Setup a new forest with `pawplicity.com` as the root domain, creating the main security boundary for the lab.
 
 <img width="550" alt="Naming my Domain" src="https://github.com/user-attachments/assets/cf12dbbf-0bbe-4fd8-8007-adc48cae31ac" />
 
 ---
+
 
 ## **Phase 2: DHCP & NAT Routing Setup**
 I configured the Domain Controller to manage the private LAN by setting up **DHCP** to automate IP assignments and **RRAS** for external access.
@@ -77,6 +79,7 @@ I utilized the **RRAS console** to transform the server into a gateway. This all
 
 ---
 
+
 ### **2.2 Connectivity Testing (Client Side)**
 To verify the setup, I booted up a client workstation (**PC_01**). As shown in the screenshot below, the client successfully received an IP from the DHCP pool (`10.5.10.20`) and was able to ping an external address (`8.8.8.8`), proving that the NAT routing is working perfectly.
 
@@ -85,8 +88,10 @@ To verify the setup, I booted up a client workstation (**PC_01**). As shown in t
 
 ---
 
+
 ## **Phase 3: IAM & Active Directory Structure**
 With the network established, I designed and implemented the **Identity and Access Management (IAM)** hierarchy within Active Directory. The goal was to create an organized structure that reflects the company’s geographical locations and departments for easier policy management.
+
 
 ### **Organizational Unit (OU) Hierarchy**
 I created a top-level OU for the company, **Pawplicity**, and nested sub-OUs based on regional offices:
@@ -110,6 +115,12 @@ This tiered structure allows for granular **Group Policy Object (GPO)** applicat
 ## **Phase 4: Automated Bulk User Creation**
 
 To streamline the onboarding process, I utilized a specialized PowerShell script from the **[AD_PS](https://github.com/joshmadakor1/AD_PS)** repository by **Josh Madakor**. This script is designed to automate Active Directory user creation from an external text-based source file, allowing for a more efficient setup compared to manual entry and ensuring consistency across all new accounts.
+
+### **User Verification**
+The screenshot below confirms the successful completion of the bulk import. All users from the source file are now properly populated within the **Westchester > Users** OU with their correct names and attributes.
+
+<img width="600" height="600" alt="ConfirmedUserCreation" src="https://github.com/user-attachments/assets/12d2b0be-50a4-4507-bebb-e512a84f267f" />
+
 
 ### **Implementation & Troubleshooting**
 While the script provided the framework for automation, I was responsible for configuring it to work within my specific environment. I encountered and resolved several initial errors during the implementation:
@@ -207,7 +218,3 @@ Client Impact: Attempting to access the Display Control Panel triggers an immedi
 * **Log-Based Troubleshooting**: Instead of guessing why a script failed, I learned to lean on the PowerShell error codes. Reading the specific "Object Not Found" or "Access Denied" errors allowed me to pivot and fix the configuration in seconds rather than minutes.
 ---
 
-### **Final Verification**
-The screenshot below confirms the successful completion of the bulk import. All users from the source file are now properly populated within the **Westchester > Users** OU with their correct names and attributes.
-
-<img width="600" height="600" alt="ConfirmedUserCreation" src="https://github.com/user-attachments/assets/12d2b0be-50a4-4507-bebb-e512a84f267f" />
