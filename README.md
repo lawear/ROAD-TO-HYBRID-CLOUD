@@ -166,13 +166,16 @@ The script iterates through each row of the text file, dynamically building user
 
 ---
 
-
 ### **Lessons Learned**
-* **The Importance of Data Integrity**: I learned that even a single trailing space in a source `.txt` file can cause a PowerShell script to misinterpret headers, leading to failed execution.
-* **Distinguished Names (DN) are Literal**: Active Directory requires exact syntax; I discovered that any naming mismatch—such as a missing space in "New York"—will cause the script to fail as it cannot resolve the target path.
-* **Automation Efficiency**: Utilizing a script significantly decreased onboarding time and reduced the potential for manual typos compared to creating 13+ users via the GUI.
-* **Troubleshooting Error Logs**: This phase reinforced the value of reading PowerShell error codes to trace a problem back to its root cause, allowing for quick pivots in script configuration.
+* **Data Integrity & Syntax**: I found that even a single trailing space in the source .txt file or a missing space in a Distinguished Name (DN) (e.g., "New York" vs "NewYork") would cause the PowerShell script to fail. This reinforced how literal Active Directory is with naming conventions
 
+* **DNS is NOT Optional**: I learned Active Directory is entirely dependent on DNS. If a client cannot resolve the Domain Controller’s SRV records, the domain join will fail. I configured the DC as the primary DNS server for the entire lab to ensure seamless name resolution and authentication.
+
+* **DHCP & Gateway Authority**: To make the NAT Routing work, I configured specific DHCP Options: Option 003 (Default Gateway) and Option 006 (DNS Servers). This automated the client-side networking, allowing workstations to find the internet through the NAT server and the DC for domain resources.
+
+* **Automation vs. GUI**: Scripting the user creation saved a massive amount of time. Manually creating 13+ users in the GUI is slow and prone to typos; automation ensures every account is built with the exact same attributes every time.
+
+* **Log-Based Troubleshooting**: Instead of guessing why a script failed, I learned to lean on the PowerShell error codes. Reading the specific "Object Not Found" or "Access Denied" errors allowed me to pivot and fix the configuration in seconds rather than minutes.
 ---
 
 ### **Final Verification**
