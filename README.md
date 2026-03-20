@@ -22,40 +22,6 @@ For governance, I deployed Active Directory Domain Services and a suite of Group
     * Designed a custom **OU structure** to organize users and service accounts.
     * Provisioned **Security Groups** to test permissions and access control.
 * **Windows Client:** A domain-joined workstation used to verify that the networking and policies actually work in practice.
-* **Custom Policies (GPOs):**
-    * **Drive Mapping:** Automatically map the I: drive to \\NY-DC\Pawp_drive_shares for everyone in the Westchester office. Using Group Policy Preferences.
-    * 
-**1.Linking the Policy:**
-I created the GPO_DriveMapping_Public object and linked it directly to the Westchester > Users OU. By targeting the OU instead of the whole domain, I ensured this share only hits the regional staff who actually need access to these files.
-
-<img width="2000" height="1000" alt="Drive_Mapping" src="https://github.com/user-attachments/assets/e2740a36-24d7-40e5-b97a-a871732a857e" />
-
-<img width="2000" height="1000" alt="wttg" src="https://github.com/user-attachments/assets/4c2d9424-c92e-4426-b54f-7ef4d6111461" />
-
-
-
-
-**2.Configuring the Mapping:**
-Inside the GPO Editor, I set the action to Update. I used "Update" over "Create" because it’s more flexible; if I ever change the drive label or the server path later, the policy will push those changes out automatically without me having to delete and recreate the map.
-
-Path: \\NY-DC\Pawp_drive_shares
-
-Drive Letter: I:
-
-Label: my_pawp_drive
-
-<img width="2904" height="1425" alt="Creating Drive" src="https://github.com/user-attachments/assets/ef2d13ab-5c27-4923-9560-f572b19e9db6" />
-
-
-
-**3.Testing & Verification:**
-Confirmed auto mapping on client machine logging in with authorized user linked to policy.
-
-<img width="3099" height="1623" alt="Drive_mapped" src="https://github.com/user-attachments/assets/a2f3dde1-9427-4692-b7dd-453972a822a1" />
-
-
-* **Screensaver Lock:** Enforces a mandatory screensaver and timeout lock to ensure workstations are secured when idle.
-* **Local Admin Control:** Centralized workstation management by adding a dedicated `Pawp_Admin` to the local Administrators group of all domain-joined PCs.
 
 
 ---
@@ -165,6 +131,69 @@ The script iterates through each row of the text file, dynamically building user
 <img width="600" height="600" alt="CreatedUserswithPS" src="https://github.com/user-attachments/assets/35f12bf5-3d8b-46ec-b20e-9f257d654db3" />
 
 ---
+* **Custom Policies (GPOs):**
+    * **Drive Mapping:** Automatically map the I: drive to \\NY-DC\Pawp_drive_shares for everyone in the Westchester office. Using Group Policy Preferences.
+    * 
+**1.Linking the Policy:**
+I created the GPO_DriveMapping_Public object and linked it directly to the Westchester > Users OU. By targeting the OU instead of the whole domain, I ensured this share only hits the regional staff who actually need access to these files.
+
+<img width="2000" height="1000" alt="Drive_Mapping" src="https://github.com/user-attachments/assets/e2740a36-24d7-40e5-b97a-a871732a857e" />
+
+<img width="2000" height="1000" alt="wttg" src="https://github.com/user-attachments/assets/4c2d9424-c92e-4426-b54f-7ef4d6111461" />
+
+
+
+
+**2.Configuring the Mapping:**
+Inside the GPO Editor, I set the action to Update. I used "Update" over "Create" because it’s more flexible; if I ever change the drive label or the server path later, the policy will push those changes out automatically without me having to delete and recreate the map.
+
+Path: \\NY-DC\Pawp_drive_shares
+
+Drive Letter: I:
+
+Label: my_pawp_drive
+
+<img width="2904" height="1425" alt="Creating Drive" src="https://github.com/user-attachments/assets/ef2d13ab-5c27-4923-9560-f572b19e9db6" />
+
+
+
+**3.Testing & Verification:**
+Confirmed auto mapping on client machine logging in with authorized user linked to policy.
+
+<img width="3099" height="1623" alt="Drive_mapped" src="https://github.com/user-attachments/assets/a2f3dde1-9427-4692-b7dd-453972a822a1" />
+
+
+**Screensaver Lock:** Enforces a mandatory screensaver and timeout lock to ensure workstations are secured when idle.
+
+**Workstation Hardening(Personalization & Security)**
+Objective: Standardize the desktop environment for the Westchester branch and enforce an idle-lock policy that cannot be bypassed by end-users.
+
+**1.Scope & Implementation:**
+I created and linked the Workstation_Personalization_Hardening GPO to the Westchester > Users OU. Applying this at the User level ensures the security baseline follows the employee to any workstation or VM they sign into within the domain.
+
+**2.Technical Configuration**
+Using the Group Policy Management Editor, I moved beyond simple preferences to strictly enforced lockdowns:
+
+Prevent changing screen saver: Set to Enabled.
+
+Prevent changing color scheme & theme: Set to Enabled.
+
+Password protect screen saver: Set to Enabled.
+
+Screen saver timeout: Hard-coded to 900 seconds (15 minutes).
+
+<img width="3270" height="1683" alt="Personalization settings" src="https://github.com/user-attachments/assets/80b43eee-e1ff-4b6a-a257-473c85e4a9e4" />
+
+**3.Validation & Testing**
+To verify, I ran gpresult /r on PC_01 for user Martin Ødegaard.
+<img width="2000" height="1000" alt="ScreenSaver Policy applied" src="https://github.com/user-attachments/assets/cf8b6b53-4ba3-4547-b64e-2b98fc304328" />
+
+
+Terminal Output: Confirmed Workstation_Personalization_Hardening under Applied Group Policy Objects.
+
+Client Impact: Attempting to access the Display Control Panel triggers an immediate system restriction notice: "Your system administrator has disabled launching of the Display Control Panel."
+* **Local Admin Control:** Centralized workstation management by adding a dedicated `Pawp_Admin` to the local Administrators group of all domain-joined PCs.
+
 
 ### **Lessons Learned & Technical Insights**
 * **Data Integrity & Syntax**: I discovered how literal Active Directory is with naming conventions. Even a single trailing space in a .txt source file or a missing space in a Distinguished Name (DN) (e.g., "New York" vs "NewYork") causes script failure.
