@@ -9,4 +9,10 @@ Declan,Rice,Decs
 Bernardo,Silva,BSilva
 Ibrahima,Konaté,Ikonate
 Marcus,Rashford,mrash
-Mensah,Lawrence,lmensah
+Daniel,Opoku,dpoku
+Audrey,Rose,arose
+Kingsley,Osei,k-osei
+Lawrence,Mensah,lmensah
+Stacy,Adoma,Sadoma
+Priscilla,Adoma,Padoma
+Aziz,Bukari,wayoosi
